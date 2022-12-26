@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -137,10 +138,14 @@ fun TipCalculatorView(onValuesChanged: (Int, Int) -> Unit = { _, _ -> }) {
                 modifier = Modifier.fillMaxWidth(),
                 value = "$billAmount",
                 label = { Text(text = "Bill Amount") },
-                leadingIcon = { Text(text = "Rp ")},
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                leadingIcon = { Text(text = "Rp ") },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.None
+                ),
                 onValueChange = { value ->
-                    billAmount = if (value.isNotEmpty()) value.toInt() else 0
+                    billAmount = if (value.isNotEmpty()) value.trim().toInt() else 0
                     onValuesChanged(personCount, totalTip)
                 })
 
